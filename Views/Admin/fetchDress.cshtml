@@ -1,0 +1,65 @@
+﻿@model List<dress_ordering_system.Models.Dress>
+
+<div class="container-fluid px-4">
+    <h2 class="mt-4 text-center text-uppercase" style="letter-spacing:4px">
+        All Dress
+    </h2>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+
+        <a href="@Url.Action("addDress", "Admin")" class="btn btn-primary">
+            Add New Dress
+        </a>
+
+        <table class="table table-bordered table-striped text-center mt-2">
+
+            <thead>
+                <tr>
+                    <th>Dress Name</th>
+                    <th>Dress Price</th>
+                    <th>Dress Image</th>
+                    <th>Options</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var prod in Model)
+                {
+                    <tr>
+                        <td>@prod.dress_name</td>
+
+                        <td>@prod.dress_price</td>
+
+                        <td>
+                            <img src="~/dress_image/@prod.dress_image"
+                                 asp-append-version="true"
+                                 height="40"
+                                 width="40"
+                                 style="object-fit:cover;border-radius:5px;" />
+                        </td>
+
+                        <td>
+                            <a href="@Url.Action("dressDetails", "Admin", new { id = prod.dress_id })"
+                               class="btn btn-primary btn-sm">
+                                Details
+                            </a>
+
+                            <a href="@Url.Action("updateDress", "Admin", new { id = prod.dress_id })"
+                               class="btn btn-warning btn-sm">
+                                Update
+                            </a>
+
+                            <a href="@Url.Action("deletePermissionDress", "Admin", new { id = prod.dress_id })"
+                               class="btn btn-danger btn-sm">
+                                Delete
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+    </div>
+</div>

@@ -1,0 +1,75 @@
+﻿@{
+    ViewData["Title"] = "Login";
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>@ViewData["Title"] - Molla</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="@Url.Content("~/website/css/bootstrap.min.css")">
+    <link rel="stylesheet" href="@Url.Content("~/website/css/style.css?v=2")">
+    <link rel="stylesheet" href="@Url.Content("~/website/css/all.min.css")">
+    <link rel="stylesheet" href="@Url.Content("~/website/css/uicons-regular-rounded.css")">
+    <link rel="stylesheet" href="@Url.Content("~/website/css/responsive.css")">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="login-page login-bg"
+         style="background-image: url('@Url.Content("~/website/images/resources/login-bg.jpg")');">
+        <div class="container">
+            <div class="row h-100 align-items-center justify-content-center">
+                <div class="col-md-5">
+                    <div class="card p-4 shadow">
+                        <h3 class="text-center mb-4">Customer Login</h3>
+
+                        <form asp-action="Login" method="post" autocomplete="off">
+
+                            <div class="form-group mb-3">
+                                <label>Email</label>
+                                <input type="email" name="customerEmail" class="form-control"
+                                       placeholder="Enter email" required>
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label>Password</label>
+                                <input type="password" name="customerPassword" class="form-control"
+                                       placeholder="Enter password" required>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary w-100">
+                                LOG IN
+                            </button>
+                        </form>
+
+                        <div class="text-center mt-3">
+                            <span>Don't have an account?</span>
+                            <a href="@Url.Action("CustomerRegistration", "Customer")" class="fw-bold ms-1">
+                                Sign up
+                            </a>
+
+                            @if (ViewBag.Error != null)
+                            {
+                                <h5 class="text-danger text-center mt-3">@ViewBag.Error</h5>
+                            }
+                        </div>
+
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="@Url.Content("~/website/js/bootstrap.bundle.min.js")"></script>
+</body>
+
+</html>

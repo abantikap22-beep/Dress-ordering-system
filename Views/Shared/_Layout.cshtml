@@ -1,0 +1,1211 @@
+﻿@using dress_ordering_system.Models
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8" />
+
+    <title>@ViewData["Title"] - Molla</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet"
+          href="@Url.Content("~/website/css/bootstrap.min.css")" />
+
+    <!-- Molla Main CSS -->
+    <link rel="stylesheet"
+          href="@Url.Content("~/website/css/style.css?v=3")" />
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="@Url.Content("~/website/css/all.min.css")" />
+
+    <!-- Flaticon -->
+    <link rel="stylesheet"
+          href="@Url.Content("~/website/css/uicons-regular-rounded.css")" />
+
+    <!-- Responsive -->
+    <link rel="stylesheet"
+          href="@Url.Content("~/website/css/responsive.css")" />
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet" />
+
+    <style>
+
+        /* =========================================================
+                           GENERAL
+                           ========================================================= */
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+
+        /* =========================================================
+                           TOP BAR
+                           ========================================================= */
+
+        .molla-top-bar {
+            width: 100%;
+            min-height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            background: #ffffff;
+        }
+
+
+        /* Phone */
+
+        .molla-phone {
+            font-size: 14px;
+            color: #333333;
+            white-space: nowrap;
+        }
+
+
+        /* =========================================================
+                           RIGHT SIDE
+                           ========================================================= */
+
+        .molla-header-actions {
+            display: flex;
+            align-items: center;
+            gap: 22px;
+            margin-left: auto;
+        }
+
+
+        /* =========================================================
+                           LOGIN / ACCOUNT / CART
+                           ========================================================= */
+
+        .molla-header-item {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+
+        .molla-header-link {
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 7px !important;
+            color: #222222 !important;
+            text-decoration: none !important;
+            font-size: 14px !important;
+            font-weight: 400 !important;
+            line-height: 1 !important;
+            white-space: nowrap;
+            padding: 4px 0;
+            transition: all 0.2s ease;
+        }
+
+
+            /* Icons */
+
+            .molla-header-link i {
+                display: inline-flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                width: 18px;
+                height: 18px;
+                font-size: 15px !important;
+                color: #222222 !important;
+                line-height: 1 !important;
+            }
+
+
+            /* Hover */
+
+            .molla-header-link:hover {
+                color: #ee8f72 !important;
+                text-decoration: none !important;
+            }
+
+
+                .molla-header-link:hover i {
+                    color: #ee8f72 !important;
+                }
+
+
+        /* =========================================================
+                           CART
+                           ========================================================= */
+
+        .molla-cart-link {
+            position: relative;
+            padding-right: 5px;
+        }
+
+
+        .molla-cart-count {
+            position: absolute;
+            top: -10px;
+            right: -13px;
+            width: 18px;
+            height: 18px;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            background: #ff3b30 !important;
+            color: #ffffff !important;
+            border-radius: 50%;
+            font-size: 10px !important;
+            font-weight: 600 !important;
+            line-height: 18px !important;
+            text-align: center;
+            padding: 0;
+        }
+
+
+        /* =========================================================
+                           MAIN HEADER
+                           ========================================================= */
+
+        .molla-main-header {
+            width: 100%;
+            background: #ffffff;
+        }
+
+
+            .molla-main-header .container {
+                min-height: 95px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+
+
+        /* LOGO */
+
+        .molla-logo {
+            display: inline-flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+
+            .molla-logo img {
+                height: 40px;
+                width: auto;
+                display: block;
+            }
+
+
+        /* =========================================================
+                           NAVIGATION
+                           ========================================================= */
+
+        .molla-navigation {
+            display: flex;
+            align-items: center;
+        }
+
+
+            .molla-navigation ul {
+                margin: 0;
+                padding: 0;
+                list-style: none;
+            }
+
+
+        .molla-main-menu {
+            display: flex !important;
+            align-items: center;
+            gap: 32px;
+        }
+
+
+            .molla-main-menu > li {
+                position: relative;
+            }
+
+
+                .molla-main-menu > li > a {
+                    display: block;
+                    padding: 10px 0;
+                    color: #222222;
+                    text-decoration: none;
+                    font-size: 14px;
+                    font-weight: 500;
+                    white-space: nowrap;
+                    transition: color 0.2s ease;
+                }
+
+
+                    .molla-main-menu > li > a:hover {
+                        color: #ee8f72;
+                    }
+
+
+            /* =========================================================
+                           CATEGORY DROPDOWN
+                           ========================================================= */
+
+            .molla-main-menu .molla-category-menu {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                min-width: 180px;
+                background: #ffffff;
+                padding: 12px 0;
+                box-shadow: 0 5px 20px rgba(0, 0, 0, 0.12);
+                z-index: 9999;
+                opacity: 0;
+                visibility: hidden;
+                transform: translateY(8px);
+                transition: all 0.2s ease;
+            }
+
+
+            .molla-main-menu > li:hover .molla-category-menu {
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0);
+            }
+
+
+        .molla-category-menu li {
+            width: 100%;
+        }
+
+
+            .molla-category-menu li a {
+                display: block;
+                padding: 8px 18px;
+                color: #333333;
+                text-decoration: none;
+                font-size: 13px;
+            }
+
+
+                .molla-category-menu li a:hover {
+                    background: #f7f7f7;
+                    color: #ee8f72;
+                }
+
+
+        /* =========================================================
+                           CHATBOT
+                           ========================================================= */
+
+        #chatbot {
+            position: fixed;
+            right: 25px;
+            bottom: 85px;
+            width: 360px;
+            max-width: calc(100vw - 30px);
+            height: 500px;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.20);
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            z-index: 99999;
+        }
+
+        #chatbot-header {
+            background: #343a40;
+            color: #ffffff;
+            padding: 14px 18px;
+            font-size: 16px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        #chatbot-close {
+            cursor: pointer;
+            font-size: 20px;
+            line-height: 1;
+        }
+
+        #chatbot-body {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            background: #f7f7f7;
+            font-size: 14px;
+        }
+
+        .chatbot-bot-message {
+            margin-bottom: 12px;
+            padding: 10px 12px;
+            border-radius: 8px;
+            background: #ffffff;
+            line-height: 1.5;
+            word-wrap: break-word;
+        }
+
+        .chatbot-user-message {
+            margin-bottom: 12px;
+            margin-left: 35px;
+            padding: 10px 12px;
+            border-radius: 8px;
+            background: #343a40;
+            color: #ffffff;
+            line-height: 1.5;
+            word-wrap: break-word;
+        }
+
+        .chatbot-suggestion-title {
+            margin-bottom: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #666666;
+        }
+
+        .chatbot-suggestion {
+            display: block;
+            width: 100%;
+            text-align: left;
+            background: #ffffff;
+            border: 1px solid #dddddd;
+            border-radius: 8px;
+            padding: 9px 11px;
+            margin-bottom: 7px;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            font-size: 13px;
+            color: #333333;
+        }
+
+            .chatbot-suggestion:hover {
+                background: #f3f3f3;
+                border-color: #343a40;
+            }
+
+        #chatbot-input {
+            display: flex;
+            gap: 8px;
+            padding: 10px;
+            background: #ffffff;
+            border-top: 1px solid #dddddd;
+        }
+
+        #chatInput {
+            flex: 1;
+            border: 1px solid #cccccc;
+            border-radius: 6px;
+            padding: 10px;
+            outline: none;
+            font-family: 'Poppins', sans-serif;
+            font-size: 13px;
+        }
+
+            #chatInput:focus {
+                border-color: #ee8f72;
+            }
+
+        #chatbot-input button {
+            border: none;
+            border-radius: 6px;
+            padding: 10px 16px;
+            background: #343a40;
+            color: #ffffff;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+        }
+
+            #chatbot-input button:hover {
+                background: #222222;
+            }
+
+        #chatbot-toggle {
+            position: fixed;
+            right: 25px;
+            bottom: 25px;
+            width: 55px;
+            height: 55px;
+            border: none;
+            border-radius: 50%;
+            background: #ee9b7d;
+            color: #ffffff;
+            font-size: 25px;
+            cursor: pointer;
+            z-index: 99998;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.18);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+            #chatbot-toggle:hover {
+                transform: scale(1.05);
+            }
+
+        @@media (max-width: 768px) {
+            #chatbot {
+                right: 10px;
+                bottom: 75px;
+                width: calc(100vw - 20px);
+                height: 450px;
+            }
+
+            #chatbot-toggle {
+                right: 15px;
+                bottom: 15px;
+            }
+        }
+
+        /* =========================================================
+                           FOOTER
+                           ========================================================= */
+
+        .molla-footer {
+            width: 100%;
+            margin-top: 50px;
+            background: #ffffff;
+        }
+
+
+        .molla-footer-content {
+            padding: 30px 15px;
+            text-align: center;
+            color: #333333;
+            font-size: 14px;
+        }
+
+
+        /* =========================================================
+                           MOBILE
+                           ========================================================= */
+
+        @@media (max-width: 992px) {
+            .molla-main-menu {
+                gap: 18px;
+            }
+
+                .molla-main-menu > li > a {
+                    font-size: 13px;
+                }
+        }
+
+
+        @@media (max-width: 768px) {
+            .molla-top-bar {
+                padding: 0 12px;
+            }
+
+
+            .molla-phone {
+                font-size: 12px;
+            }
+
+
+            .molla-header-actions {
+                gap: 12px;
+            }
+
+
+            .molla-header-link {
+                font-size: 12px !important;
+                gap: 4px !important;
+            }
+
+
+                .molla-header-link i {
+                    width: 16px;
+                    height: 16px;
+                    font-size: 13px !important;
+                }
+
+
+            .molla-main-header .container {
+                flex-direction: column;
+                padding-top: 15px;
+                padding-bottom: 15px;
+                gap: 15px;
+            }
+
+
+            .molla-main-menu {
+                gap: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+
+            #chatbot {
+                right: 10px;
+                bottom: 75px;
+                width: calc(100vw - 20px);
+                height: 450px;
+            }
+
+
+            #chatbot-toggle {
+                right: 15px;
+                bottom: 15px;
+            }
+        }
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================================================
+         HEADER
+         ========================================================= -->
+
+    <header>
+
+
+        <!-- =====================================================
+             TOP BAR
+             ===================================================== -->
+
+        <div class="molla-top-bar">
+
+
+            <!-- PHONE -->
+
+            <div class="molla-phone">
+
+                Call: +98 765 432
+
+            </div>
+
+
+            <!-- RIGHT ACTIONS -->
+
+            <div class="molla-header-actions">
+
+
+                <!-- =================================================
+                     LOGIN / LOGOUT
+                     ================================================= -->
+
+                <div class="molla-header-item">
+
+                    @if (string.IsNullOrEmpty(ViewBag.checkSession))
+                    {
+                        <a href="@Url.Action("Login", "Customer")"
+                           class="molla-header-link">
+
+                            <i class="fas fa-sign-in-alt"></i>
+
+                            <span>Login</span>
+
+                        </a>
+                    }
+                    else
+                    {
+                        <a href="@Url.Action("customerLogout", "Customer")"
+                           class="molla-header-link">
+
+                            <i class="fas fa-sign-out-alt"></i>
+
+                            <span>Logout</span>
+
+                        </a>
+                    }
+
+                </div>
+
+
+                <!-- =================================================
+                     ACCOUNT
+                     ================================================= -->
+
+                <div class="molla-header-item">
+
+                    <a href="@Url.Action("customerProfile", "Customer")"
+                       class="molla-header-link"
+                       title="My Account">
+
+                        <i class="fas fa-user"></i>
+
+                        <span>Account</span>
+
+                    </a>
+
+                </div>
+
+
+                <!-- =================================================
+                     CART
+                     ================================================= -->
+
+                <div class="molla-header-item">
+
+                    <a href="@Url.Action("fetchCart", "Customer")"
+                       class="molla-header-link molla-cart-link"
+                       title="Shopping Cart">
+
+                        <i class="fas fa-shopping-cart"></i>
+
+                        <span>Cart</span>
+
+                        <span id="cartCount"
+                              class="molla-cart-count">
+                            0
+                        </span>
+
+                    </a>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================================
+             LOGO + NAVIGATION
+             ===================================================== -->
+
+        <div class="molla-main-header">
+
+            <div class="container">
+
+
+                <!-- LOGO -->
+
+                <a asp-controller="Customer"
+                   asp-action="Index"
+                   class="molla-logo">
+
+                    <img src="@Url.Content("~/website/images/logo.webp")"
+                         alt="Molla"
+                         asp-append-version="true" />
+
+                </a>
+
+
+                <!-- NAVIGATION -->
+
+                <nav class="molla-navigation">
+
+                    <ul class="molla-main-menu">
+
+
+                        <!-- HOME -->
+
+                        <li>
+
+                            <a asp-controller="Customer"
+                               asp-action="Index">
+
+                                Home
+
+                            </a>
+
+                        </li>
+
+
+                        <!-- CATEGORIES -->
+
+                        <li>
+
+                            <a href="javascript:void(0);">
+
+                                Categories
+
+                            </a>
+
+
+                            <ul class="molla-category-menu">
+
+                                <partial name="fetchCategoryList"
+                                         model="@(ViewData["category"] as List<Category>)" />
+
+                            </ul>
+
+                        </li>
+
+
+                        <!-- CONTACT -->
+
+                        <li>
+
+                            <a href="@Url.Action("feedback", "Customer")">
+
+                                Contact Us
+
+                            </a>
+
+                        </li>
+
+
+                        <!-- MY ORDERS -->
+
+                        <li>
+
+                            <a href="@Url.Action("MyOrders", "Customer")">
+
+                                My Orders
+
+                            </a>
+
+                        </li>
+
+                        <li>
+                            <a href="@Url.Action("Wishlist", "Customer")">
+                                <i class="fas fa-heart"></i>
+                                Wishlist
+                            </a>
+                        </li>
+
+                        <!-- PRODUCT -->
+
+                        <li>
+
+                            <a href="@Url.Action("fetchAllDress", "Customer")">
+
+                                Product
+
+                            </a>
+
+                        </li>
+
+
+                        <!-- BLOG -->
+
+                        <li>
+
+                            <a href="@Url.Action("Blog", "Customer")">
+
+                                Blog
+
+                            </a>
+
+                        </li>
+
+
+                    </ul>
+
+                </nav>
+
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- =========================================================
+         PAGE CONTENT
+         ========================================================= -->
+
+    <main>
+
+        @RenderBody()
+
+    </main>
+
+
+    <!-- =========================================================
+         FOOTER
+         ========================================================= -->
+
+    <footer class="molla-footer">
+
+        <div class="molla-footer-content">
+
+            © 2025 Molla. All rights reserved.
+
+        </div>
+
+    </footer>
+
+
+    <!-- =========================================================
+         CHATBOT
+         ========================================================= -->
+
+    <div id="chatbot">
+
+        <div id="chatbot-header">
+            <span>AI Shopping Assistant</span>
+
+            <span id="chatbot-close">
+                ×
+            </span>
+        </div>
+
+        <div id="chatbot-body">
+
+            <div class="chatbot-bot-message">
+                <strong>Bot:</strong>
+
+                <div style="margin-top:5px;">
+                    Hello! 👋 Welcome to Molla.
+                    <br />
+                    How can I help you today?
+                </div>
+            </div>
+
+            <div>
+
+                <div class="chatbot-suggestion-title">
+                    ✨ Try one of these:
+                </div>
+
+                <button type="button"
+                        class="chatbot-suggestion"
+                        onclick="quickMessage('Show me summer dresses')">
+                    ☀️ Show me summer dresses
+                </button>
+
+                <button type="button"
+                        class="chatbot-suggestion"
+                        onclick="quickMessage('Show me winter dresses')">
+                    ❄️ Show me winter dresses
+                </button>
+
+                <button type="button"
+                        class="chatbot-suggestion"
+                        onclick="quickMessage('Show me spring dresses')">
+                    🌸 Show me spring dresses
+                </button>
+
+                <button type="button"
+                        class="chatbot-suggestion"
+                        onclick="quickMessage('Find dresses under 2000 TK')">
+                    💰 Find dresses under 2000 TK
+                </button>
+
+                <button type="button"
+                        class="chatbot-suggestion"
+                        onclick="quickMessage('How can I add a product to my cart?')">
+                    🛒 How can I add a product to my cart?
+                </button>
+
+                <button type="button"
+                        class="chatbot-suggestion"
+                        onclick="quickMessage('How does wishlist work?')">
+                    ❤️ How does wishlist work?
+                </button>
+
+            </div>
+
+        </div>
+
+        <div id="chatbot-input">
+
+            <input type="text"
+                   id="chatInput"
+                   placeholder="Type your message..."
+                   autocomplete="off" />
+
+            <button type="button"
+                    onclick="sendMessage()">
+                Send
+            </button>
+
+        </div>
+
+    </div>
+
+    <button id="chatbot-toggle"
+            type="button"
+            aria-label="Open chatbot">
+        💬
+    </button>
+
+    <script>
+
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const chatbot = document.getElementById("chatbot");
+            const toggle = document.getElementById("chatbot-toggle");
+            const closeButton = document.getElementById("chatbot-close");
+            const input = document.getElementById("chatInput");
+            const body = document.getElementById("chatbot-body");
+
+            toggle.addEventListener("click", function () {
+
+                if (chatbot.style.display === "flex") {
+                    chatbot.style.display = "none";
+                }
+                else {
+                    chatbot.style.display = "flex";
+                    input.focus();
+                }
+
+            });
+
+            closeButton.addEventListener("click", function () {
+                chatbot.style.display = "none";
+            });
+
+            input.addEventListener("keydown", function (event) {
+
+                if (event.key === "Enter") {
+                    event.preventDefault();
+                    sendMessage();
+                }
+
+            });
+
+            function escapeHtml(text) {
+
+                const div = document.createElement("div");
+                div.textContent = text;
+                return div.innerHTML;
+
+            }
+
+            function addUserMessage(message) {
+
+                const div = document.createElement("div");
+
+                div.className = "chatbot-user-message";
+
+                div.innerHTML =
+                    "<strong>You:</strong><br>" +
+                    escapeHtml(message);
+
+                body.appendChild(div);
+                body.scrollTop = body.scrollHeight;
+
+            }
+
+            function addBotMessage(message) {
+
+                const div = document.createElement("div");
+
+                div.className = "chatbot-bot-message";
+
+                div.innerHTML =
+                    "<strong>Bot:</strong><br>" + message;
+
+                body.appendChild(div);
+                body.scrollTop = body.scrollHeight;
+
+            }
+
+            window.quickMessage = function (message) {
+
+                addUserMessage(message);
+
+                setTimeout(function () {
+                    addBotMessage(getBotReply(message));
+                }, 300);
+
+            };
+
+            window.sendMessage = function () {
+
+                const message = input.value.trim();
+
+                if (!message) {
+                    return;
+                }
+
+                addUserMessage(message);
+
+                input.value = "";
+
+                setTimeout(function () {
+                    addBotMessage(getBotReply(message));
+                }, 300);
+
+            };
+
+            function getBotReply(message) {
+
+                const text = message.toLowerCase();
+
+                if (text.includes("summer")) {
+
+                    return `
+                        ☀️ <strong>Summer Collection</strong>
+                        <br><br>
+                        Our summer collection includes
+                        lightweight and comfortable dresses
+                        perfect for warm weather.
+                        <br><br>
+                        Visit <strong>Categories → Summer</strong>
+                        to explore the collection.
+                    `;
+
+                }
+
+                if (text.includes("winter")) {
+
+                    return `
+                        ❄️ <strong>Winter Collection</strong>
+                        <br><br>
+                        Our winter collection includes
+                        warm and stylish outfits.
+                        <br><br>
+                        Visit <strong>Categories → Winter</strong>
+                        to explore the collection.
+                    `;
+
+                }
+
+                if (text.includes("spring")) {
+
+                    return `
+                        🌸 <strong>Spring Collection</strong>
+                        <br><br>
+                        Our spring collection features
+                        fresh and comfortable styles.
+                        <br><br>
+                        Visit <strong>Categories → Spring</strong>
+                        to explore the collection.
+                    `;
+
+                }
+
+                if (
+                    text.includes("2000") ||
+                    text.includes("cheap") ||
+                    text.includes("affordable") ||
+                    text.includes("budget")
+                ) {
+
+                    return `
+                        💰 <strong>Budget Shopping</strong>
+                        <br><br>
+                        Molla has dresses at different
+                        price ranges.
+                        <br><br>
+                        Visit the Products page to compare
+                        prices and choose a dress.
+                    `;
+
+                }
+
+                if (
+                    text.includes("cart") ||
+                    text.includes("buy")
+                ) {
+
+                    return `
+                        🛒 <strong>Shopping Cart</strong>
+                        <br><br>
+                        Open a product and click
+                        <strong>Add To Cart</strong>.
+                        <br><br>
+                        Then open your Cart, adjust the
+                        quantity, and proceed to checkout.
+                    `;
+
+                }
+
+                if (
+                    text.includes("wishlist") ||
+                    text.includes("wish list") ||
+                    text.includes("favorite") ||
+                    text.includes("favourite")
+                ) {
+
+                    return `
+                        ❤️ <strong>Wishlist</strong>
+                        <br><br>
+                        Open a product and click the
+                        ❤️ heart icon to save it to your Wishlist.
+                        <br><br>
+                        You can open Wishlist from the
+                        navigation menu.
+                    `;
+
+                }
+
+                if (
+                    text === "hi" ||
+                    text === "hello" ||
+                    text === "hey" ||
+                    text.includes("hello")
+                ) {
+
+                    return `
+                        👋 Hello!
+                        <br><br>
+                        Welcome to Molla.
+                        <br><br>
+                        I can help you with:
+                        <br>
+                        ☀️ Summer collection
+                        <br>
+                        ❄️ Winter collection
+                        <br>
+                        🌸 Spring collection
+                        <br>
+                        💰 Product prices
+                        <br>
+                        🛒 Shopping cart
+                        <br>
+                        ❤️ Wishlist
+                    `;
+
+                }
+
+                if (
+                    text.includes("product") ||
+                    text.includes("dress") ||
+                    text.includes("clothes")
+                ) {
+
+                    return `
+                        👗 <strong>Molla Products</strong>
+                        <br><br>
+                        You can browse the Product page
+                        or choose a collection from Categories.
+                    `;
+
+                }
+
+                return `
+                    😊 I'd be happy to help you
+                    with your Molla shopping!
+                    <br><br>
+                    Try asking me about:
+                    <br><br>
+                    ☀️ Summer dresses
+                    <br>
+                    ❄️ Winter dresses
+                    <br>
+                    🌸 Spring dresses
+                    <br>
+                    💰 Product prices
+                    <br>
+                    🛒 Shopping cart
+                    <br>
+                    ❤️ Wishlist
+                `;
+
+            }
+
+        });
+
+    </script>
+
+
+    <!-- Bootstrap -->
+
+    <script src="@Url.Content("~/website/js/bootstrap.bundle.min.js")">
+    </script>
+
+
+    <!-- Page-specific scripts -->
+    @RenderSection("Scripts", required: false)
+
+
+</body>
+
+</html>

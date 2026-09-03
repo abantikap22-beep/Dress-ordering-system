@@ -1,0 +1,414 @@
+﻿@model List<dress_ordering_system.Models.Order>
+
+@{
+    ViewData["Title"] = "Sales Report";
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+}
+
+<div class="container-fluid px-4 mt-4">
+
+    <!-- PAGE TITLE -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <h1 class="mt-4">
+            Sales Report
+        </h1>
+
+        <button type="button"
+                onclick="window.print()"
+                class="btn btn-success">
+            <i class="fas fa-print"></i>
+            Print Report
+        </button>
+
+    </div>
+
+
+    <!-- DATE FILTER -->
+    <div class="card mb-4">
+
+        <div class="card-header">
+            <i class="fas fa-filter me-1"></i>
+            Generate Sales Report
+        </div>
+
+        <div class="card-body">
+
+            <form method="get"
+                  action="@Url.Action("SalesReport", "Admin")">
+
+                <div class="row">
+
+                    <!-- FROM DATE -->
+                    <div class="col-md-4">
+
+                        <label class="form-label">
+                            From Date
+                        </label>
+
+                        <input type="date"
+                               name="fromDate"
+                               value="@ViewBag.FromDate"
+                               class="form-control" />
+
+                    </div>
+
+
+                    <!-- TO DATE -->
+                    <div class="col-md-4">
+
+                        <label class="form-label">
+                            To Date
+                        </label>
+
+                        <input type="date"
+                               name="toDate"
+                               value="@ViewBag.ToDate"
+                               class="form-control" />
+
+                    </div>
+
+
+                    <!-- BUTTONS -->
+                    <div class="col-md-4 d-flex align-items-end">
+
+                        <button type="submit"
+                                class="btn btn-primary me-2">
+
+                            <i class="fas fa-chart-line"></i>
+                            Generate Report
+
+                        </button>
+
+
+                        <a href="@Url.Action("SalesReport", "Admin")"
+                           class="btn btn-secondary">
+
+                            Reset
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- SUMMARY CARDS -->
+    <div class="row">
+
+        <!-- TOTAL SALES -->
+        <div class="col-xl-4 col-md-6 mb-4">
+
+            <div class="card bg-primary text-white">
+
+                <div class="card-body">
+
+                    <h5>
+                        Total Sales
+                    </h5>
+
+                    <h2>
+                        Tk @String.Format(
+                                                "{0:N2}",
+                                                Convert.ToDecimal(ViewBag.TotalSales))
+                    </h2>
+
+                </div>
+
+                <div class="card-footer">
+
+                    Paid orders only
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- PAID ORDERS -->
+        <div class="col-xl-4 col-md-6 mb-4">
+
+            <div class="card bg-success text-white">
+
+                <div class="card-body">
+
+                    <h5>
+                        Paid Orders
+                    </h5>
+
+                    <h2>
+                        @ViewBag.TotalOrders
+                    </h2>
+
+                </div>
+
+                <div class="card-footer">
+
+                    Successfully paid orders
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- TODAY SALES -->
+        <div class="col-xl-4 col-md-6 mb-4">
+
+            <div class="card bg-warning text-dark">
+
+                <div class="card-body">
+
+                    <h5>
+                        Today's Sales
+                    </h5>
+
+                    <h2>
+                        Tk @String.Format(
+                                                "{0:N2}",
+                                                Convert.ToDecimal(ViewBag.TodaySales))
+                    </h2>
+
+                </div>
+
+                <div class="card-footer">
+
+                    Today's paid orders
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- SALES DETAILS -->
+    <div class="card mb-4">
+
+        <div class="card-header">
+
+            <i class="fas fa-table me-1"></i>
+
+            Sales Details
+
+        </div>
+
+
+        <div class="card-body">
+
+            <div class="table-responsive">
+
+                <table class="table table-bordered table-striped">
+
+                    <thead class="table-dark">
+
+                        <tr>
+
+                            <th>
+                                Order ID
+                            </th>
+
+                            <th>
+                                Customer ID
+                            </th>
+
+                            <th>
+                                Order Date
+                            </th>
+
+                            <th>
+                                Total Amount
+                            </th>
+
+                            <th>
+                                Status
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                        @if (Model != null && Model.Count > 0)
+                        {
+                            foreach (var order in Model)
+                            {
+                                <tr>
+
+                                    <td>
+                                        @order.order_id
+                                    </td>
+
+                                    <td>
+                                        @order.cust_id
+                                    </td>
+
+                                    <td>
+                                        @order.order_date.ToString(
+                                        "dd-MM-yyyy hh:mm tt")
+                            </td>
+
+                            <td>
+                                Tk @String.Format(
+                                                                "{0:N2}",
+                                                                order.total_amount)
+                            </td>
+
+                                    <td>
+
+                                        <span class="badge bg-success">
+                                            @order.status
+                                        </span>
+
+                                    </td>
+
+                                </tr>
+                                                }
+                        }
+                        else
+                        {
+                            <tr>
+
+                                <td colspan="5"
+                                    class="text-center">
+
+                                    No paid orders found.
+
+                                </td>
+
+                            </tr>
+                        }
+
+                    </tbody>
+
+
+                    @if (Model != null && Model.Count > 0)
+                    {
+                        <tfoot>
+
+                            <tr>
+
+                                <th colspan="3"
+                                    class="text-end">
+
+                                    Total Sales
+
+                                </th>
+
+                                <th>
+
+                                    Tk @String.Format(
+                                                                    "{0:N2}",
+                                                                    Convert.ToDecimal(
+                                                                    ViewBag.TotalSales))
+
+                            </th>
+
+                                <th>
+
+                                    <span class="badge bg-success">
+                                        PAID
+                                    </span>
+
+                                </th>
+
+                            </tr>
+
+                        </tfoot>
+                                        }
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- REPORT PERIOD -->
+
+    <div class="mb-4">
+
+        @if (ViewBag.FromDate != null &&
+                ViewBag.ToDate != null)
+        {
+            <p class="text-muted">
+
+                Report period:
+                <strong>@ViewBag.FromDate</strong>
+                to
+                <strong>@ViewBag.ToDate</strong>
+
+            </p>
+        }
+        else
+        {
+            <p class="text-muted">
+
+                Showing all paid orders.
+
+            </p>
+        }
+
+    </div>
+
+</div>
+
+
+<!-- PRINT STYLE -->
+
+<style>
+
+    @@media print {
+        /* Hide buttons */
+        button,
+        .btn {
+            display: none !important;
+        }
+        /* Hide filter */
+        form {
+            display: none !important;
+        }
+        /* Hide admin sidebar */
+        #layoutSidenav_nav {
+            display: none !important;
+        }
+        /* Hide top navigation */
+        .sb-topnav {
+            display: none !important;
+        }
+        /* Full width */
+        #layoutSidenav_content {
+            margin-left: 0 !important;
+        }
+        /* Remove shadows */
+        .card {
+            box-shadow: none !important;
+            border: 1px solid #000 !important;
+        }
+        /* White background */
+        body {
+            background: white !important;
+        }
+        /* Table borders */
+        table,
+        th,
+        td {
+            border: 1px solid black !important;
+        }
+    }
+
+</style>

@@ -1,0 +1,23 @@
+﻿@model List<Blog>
+
+<h2>Blog Posts</h2>
+<a href="/Admin/AddBlog" class="btn btn-success mb-3">Add New Blog</a>
+
+<table class="table table-bordered">
+    <tr>
+        <th>Title</th>
+        <th>Date</th>
+        <th>Action</th>
+    </tr>
+
+    @foreach (var b in Model)
+    {
+        <tr>
+            <td>@b.title</td>
+            <td>@b.created_date</td>
+            <td>
+                <a href="/Admin/DeleteBlog/@b.blog_id" class="btn btn-danger btn-sm">Delete</a>
+            </td>
+        </tr>
+    }
+</table>

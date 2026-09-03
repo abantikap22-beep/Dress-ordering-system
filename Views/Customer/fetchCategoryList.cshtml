@@ -1,0 +1,10 @@
+﻿@model List<Category>
+
+@foreach (var cat in Model)
+{
+    <li>
+        <a href="@Url.Action("CategoryProducts", "Customer", new { id = cat.category_id })">
+            @cat.category_name
+        </a>
+    </li>
+}

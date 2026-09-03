@@ -1,0 +1,60 @@
+﻿@{
+    ViewData["Title"] = "Checkout";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model List<Cart>
+
+<div class="container mt-4">
+    <h2>Checkout</h2>
+
+    <table class="table table-bordered text-center">
+        <tr>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Total</th>
+        </tr>
+
+        @{
+            decimal totalAmount = 0;
+        }
+
+        @foreach (var item in Model)
+        {
+            var priceText = new string(
+            item.products.dress_price
+            .Where(char.IsDigit)
+            .ToArray()
+            );
+
+            decimal price = decimal.Parse(priceText);
+
+            var rowTotal = item.dress_quantity * price;
+
+            totalAmount += rowTotal;
+
+            <tr>
+                <td>@item.products.dress_name</td>
+                <td>@item.dress_quantity</td>
+                <td>@rowTotal tk</td>
+            </tr>
+        }
+    </table>
+
+    <h3 class="text-end">
+        Total Amount to Pay: tk @totalAmount
+    </h3>
+
+    <div class="text-end">
+        <form asp-controller="Customer"
+              asp-action="PlaceOrder"
+              method="post">
+
+            <button type="submit"
+                    class="btn btn-success">
+                Pay with SSLCOMMERZ
+            </button>
+
+        </form>
+    </div>
+</div>

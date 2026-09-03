@@ -1,0 +1,66 @@
+﻿@model Dress
+<div class="container-fluid px-4">
+    <h2 class="mt-4 text-center text-uppercase" style="letter-spacing:4px">
+        Update Dress
+    </h2>
+</div>
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <form method="post">
+            <input type="hidden" name="dress_id" value="@Model.dress_id" />
+
+            <input type="text"
+                   placeholder="Enter dress Name"
+                   name="dress_name"
+                   class="form-control my-3"
+                   value="@Model.dress_name" />
+
+            <input type="text"
+                   placeholder="Enter price"
+                   name="dress_price"
+                   class="form-control my-3"
+                   value="@Model.dress_price" />
+
+            <input type="text"
+                   placeholder="Enter description"
+                   name="dress_description"
+                   class="form-control my-3"
+                   value="@Model.dress_description" />
+            @Html.Partial("CategoryDropdown", (List<Category>)ViewData["category"])
+
+            <input type="hidden" name="dress_image" value="@Model.dress_image" />
+            <input type="submit"
+                   value="Update Dress"
+                   class="form-control my-3 btn btn-primary" />
+        </form>
+       <form method="post" asp-action="ChangeDressImage" enctype="multipart/form-data">
+            <input type="hidden" name="dress_id" value="@Model.dress_id" />
+
+            <input type="hidden"
+                   placeholder="Enter dress Name"
+                   name="dress_name"
+                   class="form-control my-3"
+                   value="@Model.dress_name" />
+
+            <input type="hidden"
+                   placeholder="Enter price"
+                   name="dress_price"
+                   class="form-control my-3"
+                   value="@Model.dress_price" />
+
+            <input type="hidden"
+                   placeholder="Enter description"
+                   name="dress_description"
+                   class="form-control my-3"
+                   value="@Model.dress_description" />
+            <input type="hidden" name="cat_id" value="@Model.cat_id" class="form-control my-3" />
+            <img src="@("~/dress_image/" + Model.dress_image)" asp-append-version="true" style="width:250px;height:250px" class="my-3" /><br />
+            <input type="file" name="dress_image"  />
+            <input type="submit"
+                   value="change Dress image"
+                   class="form-control my-3 btn btn-primary" />
+        </form>
+    </div>
+    <div class="col-md-2"></div>
+</div>

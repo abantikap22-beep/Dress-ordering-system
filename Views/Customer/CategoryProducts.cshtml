@@ -1,0 +1,102 @@
+﻿@model List<dress_ordering_system.Models.Dress>
+
+@{
+    ViewData["Title"] = ViewBag.CategoryName + " Collection";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-5 mb-5">
+
+    <!-- CATEGORY TITLE -->
+    <div class="text-center mb-5">
+
+        <h2>
+            @ViewBag.CategoryName Collection
+        </h2>
+
+        <p class="text-muted">
+            Explore our @ViewBag.CategoryName collection
+        </p>
+
+    </div>
+
+
+    <!-- PRODUCTS -->
+    @if (Model != null && Model.Count > 0)
+    {
+        <div class="row">
+
+            @foreach (var product in Model)
+            {
+                <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+
+                    <div class="card h-100 shadow-sm">
+
+                        <!-- PRODUCT IMAGE -->
+                        @if (!string.IsNullOrEmpty(product.dress_image))
+                        {
+                            <a href="@Url.Action("DressDetails", "Customer", new { id = product.dress_id })">
+
+                                <img src="@Url.Content("~/dress_image/" + product.dress_image)"
+                                     class="card-img-top"
+                                     alt="@product.dress_name"
+                                     style="height:300px; object-fit:cover;"
+                                     asp-append-version="true" />
+
+                            </a>
+                        }
+                        else
+                        {
+                            <div style="
+                                            height:300px;
+                                            display:flex;
+                                            align-items:center;
+                                            justify-content:center;
+                                            background:#f5f5f5;">
+                                No Image
+                            </div>
+                        }
+
+
+                        <!-- PRODUCT DETAILS -->
+                        <div class="card-body text-center">
+
+                            <h5 class="card-title">
+                                @product.dress_name
+                            </h5>
+
+
+                            <!-- PRICE -->
+                            <p class="fw-bold">
+                                @product.dress_price
+                            </p>
+
+
+                            <!-- VIEW PRODUCT -->
+                            <a href="@Url.Action("DressDetails", "Customer", new { id = product.dress_id })"
+                               class="btn btn-dark">
+
+                                View Product
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            }
+
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info text-center">
+
+            No products are available
+            in this collection.
+
+        </div>
+    }
+
+</div>

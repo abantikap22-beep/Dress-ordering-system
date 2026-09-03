@@ -1,0 +1,287 @@
+﻿@model List<Cart>
+
+@{
+    ViewData["Title"] = "My Cart";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    decimal grandTotal = 0;
+}
+
+<div class="container mt-5 mb-5">
+
+    <h2 class="text-center mb-4">
+        My Shopping Cart
+    </h2>
+
+    @if (TempData["message"] != null)
+    {
+        <div class="alert alert-info text-center">
+            @TempData["message"]
+        </div>
+    }
+
+    @if (Model != null && Model.Count > 0)
+    {
+        <div class="table-responsive">
+
+            <table class="table table-bordered align-middle text-center">
+
+                <thead class="table-dark">
+                    <tr>
+                        <th>Product</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Total</th>
+                        <th>Option</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    @foreach (var cart in Model)
+                    {
+                        decimal price = 0;
+
+                        if (cart.products != null &&
+                        !string.IsNullOrEmpty(cart.products.dress_price))
+                        {
+                            string priceText = cart.products.dress_price
+                            .Replace(" TK", "")
+                            .Replace(" tk", "")
+                            .Trim();
+
+                            decimal.TryParse(priceText, out price);
+                        }
+
+                        decimal itemTotal = price * cart.dress_quantity;
+
+                        grandTotal += itemTotal;
+
+                        <tr>
+
+                            <!-- PRODUCT -->
+
+                            <td>
+
+                                <div class="d-flex align-items-center">
+
+                                    @if (cart.products != null &&
+                                                                !string.IsNullOrEmpty(cart.products.dress_image))
+                                    {
+                                        <img src="@Url.Content("~/dress_image/" + cart.products.dress_image)"
+                                             alt="@cart.products.dress_name"
+                                             style="
+                                                            width:80px;
+                                                            height:80px;
+                                                            object-fit:cover;
+                                                            border-radius:8px;"
+                                             class="me-3"
+                                             asp-append-version="true" />
+                                    }
+
+                                    <strong>
+                                        @cart.products.dress_name
+                                    </strong>
+
+                                </div>
+
+                            </td>
+
+
+                            <!-- PRICE -->
+
+                            <td>
+                                ৳ @price.ToString("0.00")
+                            </td>
+
+
+                            <!-- QUANTITY -->
+
+                            <td>
+
+                                <div class="d-flex justify-content-center align-items-center">
+
+                                    <!-- DECREASE -->
+
+                                    <form asp-controller="Customer"
+                                          asp-action="DecreaseQuantity"
+                                          method="post"
+                                          style="display:inline;">
+
+                                        <input type="hidden"
+                                               name="cart_id"
+                                               value="@cart.cart_id" />
+
+                                        <button type="submit"
+                                                class="btn btn-outline-dark btn-sm"
+                                                style="
+                                                            width:35px;
+                                                            height:35px;
+                                                            font-size:20px;
+                                                            padding:0;">
+
+                                            −
+
+                                        </button>
+
+                                    </form>
+
+
+                                    <!-- QUANTITY -->
+
+                                    <span style="
+                                                min-width:45px;
+                                                font-size:18px;
+                                                font-weight:bold;">
+
+                                        @cart.dress_quantity
+
+                                    </span>
+
+
+                                    <!-- INCREASE -->
+
+                                    <form asp-controller="Customer"
+                                          asp-action="IncreaseQuantity"
+                                          method="post"
+                                          style="display:inline;">
+
+                                        <input type="hidden"
+                                               name="cart_id"
+                                               value="@cart.cart_id" />
+
+                                        <button type="submit"
+                                                class="btn btn-outline-dark btn-sm"
+                                                style="
+                                                            width:35px;
+                                                            height:35px;
+                                                            font-size:20px;
+                                                            padding:0;">
+
+                                            +
+
+                                        </button>
+
+                                    </form>
+
+                                </div>
+
+
+                                <!-- AVAILABLE STOCK -->
+                                @if (cart.products != null)
+                                {
+                                    <small class="text-muted d-block mt-2">
+
+                                        Available:
+                                        @cart.products.dress_quantity
+
+                                    </small>
+                                }
+
+                            </td>
+
+
+                            <!-- ITEM TOTAL -->
+
+                            <td>
+
+                                <strong>
+                                    ৳ @itemTotal.ToString("0.00")
+                                </strong>
+
+                            </td>
+
+
+                            <!-- REMOVE -->
+
+                            <td>
+
+                                <a href="@Url.Action(
+                                                                       "removeProduct",
+                                                                       "Customer",
+                                                                       new { id = cart.cart_id })"
+                           class="btn btn-danger btn-sm">
+
+                                    Remove
+
+                                </a>
+
+                            </td>
+
+                        </tr>
+                                }
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+        <!-- GRAND TOTAL -->
+
+        <div class="row mt-4">
+
+            <div class="col-md-8">
+            </div>
+
+            <div class="col-md-4">
+
+                <div class="card shadow-sm">
+
+                    <div class="card-body">
+
+                        <h5 class="text-muted text-end">
+                            Grand Total
+                        </h5>
+
+                        <h3 class="text-end text-primary fw-bold">
+
+                            ৳ @grandTotal.ToString("0.00")
+
+                        </h3>
+
+
+                        <a href="@Url.Action("checkoutProduct", "Customer")"
+                           class="btn btn-success w-100 mt-3">
+
+                            Proceed to Checkout
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    }
+    else
+    {
+
+        <!-- EMPTY CART -->
+
+        <div class="text-center mt-5 mb-5">
+
+            <h4>
+                Your cart is empty.
+            </h4>
+
+            <p class="text-muted">
+                Add some products to your cart.
+            </p>
+
+            <a href="@Url.Action("fetchAllDress", "Customer")"
+               class="btn btn-primary">
+
+                Continue Shopping
+
+            </a>
+
+        </div>
+
+    }
+
+</div>

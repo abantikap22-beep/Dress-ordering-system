@@ -1,0 +1,36 @@
+﻿@model dress_ordering_system.Models.Dress
+
+<div class="container-fluid px-4">
+    <h2 class="mt-4 text-center text-uppercase text-danger" style="letter-spacing:4px">
+        Are you sure you want to delete this Dress?
+    </h2>
+</div>
+
+<div class="row">
+    <div class="col-md-2"></div>
+
+    <div class="col-md-8">
+
+        <ul class="list-group mb-3">
+            <li class="list-group-item">
+                <strong>Dress Id:</strong> @Model.dress_id
+            </li>
+            <li class="list-group-item">
+                <strong>Dress Name:</strong> @Model.dress_name
+            </li>
+        </ul>
+
+        <a href="@Url.Action("deleteDress", "Admin", new { id = Model.dress_id })"
+           class="btn btn-danger">
+            Delete Dress
+        </a>
+
+        <a href="@Url.Action("fetchDress", "Admin")"
+           class="btn btn-warning">
+            Back to List
+        </a>
+
+    </div>
+
+    <div class="col-md-2"></div>
+</div>

@@ -1,0 +1,181 @@
+﻿@model List<Dress>
+
+<style>
+    /* ===== FetchDress Layout Fix ===== */
+
+    .block-product {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+    .product-thumb {
+        height: 280px;
+        overflow: hidden;
+    }
+
+        .product-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+    /* ===== Wishlist Heart ===== */
+
+    .wishlist-btn {
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+    }
+
+        .wishlist-btn i {
+            font-size: 20px;
+            transition: 0.2s;
+        }
+
+        .wishlist-btn:hover i {
+            color: red;
+            transform: scale(1.2);
+        }
+
+    /* ===== Cart Icon ===== */
+
+    .cart-btn {
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    /* ===== Product Buttons ===== */
+
+    .product-btns {
+        z-index: 10;
+    }
+</style>
+
+
+<div class="container">
+
+    <div class="row">
+        <div class="sec-tl text-center">
+            <h1>Products</h1>
+        </div>
+    </div>
+
+    <div class="row">
+
+        @foreach (var pro in Model)
+        {
+            <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
+
+                <div class="block-product h-100">
+
+                    <!-- PRODUCT IMAGE -->
+                    <div class="product-thumb position-relative">
+
+                        <a href="@Url.Action("DressDetails", "Customer", new { id = pro.dress_id })">
+
+                            <img src="@Url.Content("~/dress_image/" + pro.dress_image)"
+                                 class="img-fluid"
+                                 alt="@pro.dress_name"
+                                 asp-append-version="true" />
+
+                        </a>
+
+
+                        <!-- ADD TO CART OVER IMAGE -->
+                        <div class="ad-cart position-absolute text-center">
+
+                            <form asp-action="AddToCart"
+                                  asp-controller="Customer"
+                                  method="post">
+
+                                <input type="hidden"
+                                       name="dress_id"
+                                       value="@pro.dress_id" />
+
+                                <button type="submit"
+                                        style="background:none;
+                                                   border:none;
+                                                   color:white;
+                                                   width:100%;
+                                                   cursor:pointer;">
+
+                                    <span>Add to Cart</span>
+
+                                </button>
+
+                            </form>
+
+                        </div>
+
+
+                        <!-- PRODUCT ICONS -->
+                        <div class="product-btns position-absolute">
+
+                            <!-- ================= WISHLIST ================= -->
+
+                            <a class="wishlist-btn"
+                               href="@Url.Action("AddToWishlist", "Customer", new { id = pro.dress_id })"
+                               title="Add to Wishlist">
+
+                                <i class="fi fi-rr-heart"></i>
+
+                            </a>
+
+                            <!-- ================= CART ================= -->
+
+                            <a class="cart-btn"
+                               href="@Url.Action("fetchCart", "Customer")"
+                               title="View Cart">
+
+                                <i class="fi fi-rr-shopping-bag"></i>
+
+                            </a>
+
+
+                            <!-- ================= VIEW PRODUCT ================= -->
+
+                            <a class="expand-btn"
+                               href="@Url.Action("DressDetails", "Customer", new { id = pro.dress_id })"
+                               title="View Product">
+
+                                <i class="fi fi-rr-picture"></i>
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- PRODUCT INFORMATION -->
+                    <div class="product-body text-center">
+
+                        <a href="#" class="brand-name">
+                            Dress Store
+                        </a>
+
+                        <h2 class="product-name">
+
+                            <a href="@Url.Action("DressDetails", "Customer", new { id = pro.dress_id })">
+                                @pro.dress_name
+                            </a>
+
+                        </h2>
+
+                        <span class="product-price">
+                            ৳ @pro.dress_price
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+        }
+
+    </div>
+
+</div>

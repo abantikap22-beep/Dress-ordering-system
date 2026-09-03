@@ -1,0 +1,82 @@
+﻿@{
+    Layout = null;
+    ViewData["Title"] = "CustomerRegistration";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>@ViewData["Title"] - Molla</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="@Url.Content("~/website/css/bootstrap.min.css")">
+    <link rel="stylesheet" href="@Url.Content("~/website/css/style.css?v=2")">
+    <link rel="stylesheet" href="@Url.Content("~/website/css/all.min.css")">
+    <link rel="stylesheet" href="@Url.Content("~/website/css/uicons-regular-rounded.css")">
+    <link rel="stylesheet" href="@Url.Content("~/website/css/responsive.css")">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body class="signup-page">
+
+    <div class="login-page login-bg"
+         style="background-image: url('/website/images/resources/login-bg.jpg');">
+
+        <div class="landing-container">
+
+        <div class="hero-content">
+            <h1>Trendleap</h1>
+            <p>Create your Molla account and start shopping the latest trends.</p>
+        </div>
+
+        <div id="signup-container">
+            <h2>Sign Up</h2>
+                <form method="post" asp-action="CustomerRegistration" asp-controller="Customer" id="signup-form" novalidate autocomplete="off">
+
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" class="form-control"
+                               name="customer_name" placeholder="Choose a username" required>
+                        <span class="error" id="usernameError"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" class="form-control"
+                               name="customer_email" placeholder="Enter your email" required>
+                        <span class="error" id="emailError"></span>
+                    </div>
+
+                   
+
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" class="form-control"
+                               name="customer_password" placeholder="Create a password" required>
+                        <span class="error" id="passError"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cpass">Confirm Password</label>
+                        <input type="password" id="cpass" class="form-control"
+                               placeholder="Confirm your password" required>
+                        <span class="error" id="cpError"></span>
+                    </div>
+
+                    <button type="submit" id="submit-btn" class="btn btn-primary">Sign Up</button>
+                </form>
+
+
+            <div id="form-footer">
+                Already have an account?
+                <a href="@Url.Action("Login", "Customer")">Log in</a>
+            </div>
+        </div>
+    </div>
+    </div>   <!-- closes landing-container -->
+   
+
+    <script src="@Url.Content("~/website/js/bootstrap.bundle.min.js")"></script>
+</body>
+</html>

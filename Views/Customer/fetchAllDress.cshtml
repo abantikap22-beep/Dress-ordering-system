@@ -1,0 +1,21 @@
+﻿@model List<Dress>
+
+@{
+    ViewData["Title"] = "fetchAllDress";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3 class="text-center my-4">All Dresses</h3>
+
+<div class="container">
+    <div class="row g-4">
+        @Html.Partial("fetchDress", Model)
+    </div>
+
+    @if (TempData["message"] != null)
+    {
+        <div class="text-center mt-3">
+            <h5 class="text-success">@TempData["message"]</h5>
+        </div>
+    }
+</div>

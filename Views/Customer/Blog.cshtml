@@ -1,0 +1,17 @@
+﻿@{
+    ViewData["Title"] = "Blog";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model List<Blog>
+
+<h2>Our Blog</h2>
+
+@foreach (var b in Model)
+{
+    <div class="card mb-3 p-3">
+        <h4>@b.title</h4>
+        <small>@b.created_date</small>
+        <p>@b.description.Substring(0, Math.Min(200, b.description.Length))...</p>
+        <a href="/Customer/BlogDetails/@b.blog_id">Read More</a>
+    </div>
+}

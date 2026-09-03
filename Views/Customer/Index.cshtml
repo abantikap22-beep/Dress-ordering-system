@@ -1,0 +1,278 @@
+﻿@using dress_ordering_system.Models
+
+@{
+    ViewData["Title"] = "Customer";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- ========================================================= -->
+<!-- HERO SLIDER -->
+<!-- ========================================================= -->
+
+<section class="hero-slider">
+
+    <div class="swiper mySwiper">
+
+        <div class="swiper-wrapper">
+
+            <div class="swiper-slide">
+
+                <div class="slide-content"
+                     style="background-image:url('@Url.Content("~/website/images/resources/slide-1.webp")')">
+
+                    <div class="container swiper-tl">
+
+                        <div class="content">
+
+                            <div class="content-width">
+
+                                <div class="anime up title">
+                                    LIMITED TIME ONLY.
+                                </div>
+
+                                <div class="anime left subtitle">
+                                    SUMMER
+                                    <span class="text-primary">
+                                        SALE
+                                    </span>
+                                </div>
+
+                                <div class="anime right description">
+                                    UP TO 50% OFF
+                                </div>
+
+                                <div class="anime down button">
+
+                                    <a class="btn btn-outline"
+                                       href="@Url.Action("fetchAllDress", "Customer")">
+
+                                        SHOP NOW
+
+                                        <i class="fa-solid fa-arrow-right"></i>
+
+                                    </a>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ========================================================= -->
+<!-- PROMOTION SECTION -->
+<!-- ========================================================= -->
+
+<section class="promo-section py-5">
+
+    <div class="container">
+
+        <div class="row g-4">
+
+
+            <!-- PROMOTION 1 -->
+
+            <div class="col-lg-4">
+
+                <div class="promo-card">
+
+                    <div class="promo-image"
+                         style="background-image:url('@Url.Content("~/website/images/resources/block-1-1.webp")')">
+
+                        <div class="promo-content">
+
+                            <h4>
+                                Final reduction
+                            </h4>
+
+                            <h3>
+                                Sandals & Flip Flops
+                                <br />
+                                up to 60% off
+                            </h3>
+
+                            <a href="@Url.Action("fetchAllDress", "Customer")"
+                               class="btn btn-outline-primary">
+
+                                SHOP NOW
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- PROMOTION 2 -->
+
+            <div class="col-lg-4">
+
+                <div class="promo-card">
+
+                    <div class="promo-image"
+                         style="background-image:url('@Url.Content("~/website/images/resources/block-1-2.webp")')">
+
+                        <div class="promo-content">
+
+                            <h4>
+                                Limited time only
+                            </h4>
+
+                            <h3>
+                                Trainers & Sportwear
+                                <br />
+                                40–70% off
+                            </h3>
+
+                            <a href="@Url.Action("fetchAllDress", "Customer")"
+                               class="btn btn-outline-primary">
+
+                                SHOP NOW
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- PROMOTION 3 -->
+
+            <div class="col-lg-4">
+
+                <div class="promo-card">
+
+                    <div class="promo-image"
+                         style="background-image:url('@Url.Content("~/website/images/resources/block-1-3.webp")')">
+
+                        <div class="promo-content">
+
+                            <h4>
+                                This week we love
+                            </h4>
+
+                            <h3>
+                                Women's Accessories
+                                <br />
+                                from $6.99
+                            </h3>
+
+                            <a href="@Url.Action("fetchAllDress", "Customer")"
+                               class="btn btn-outline-primary">
+
+                                SHOP NOW
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ========================================================= -->
+<!-- REAL DATABASE PRODUCTS -->
+<!-- ========================================================= -->
+
+<section class="reveal-section">
+
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-12">
+
+                <partial name="fetchDress"
+                         model="@(ViewData["dress"] as List<Dress>)" />
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ========================================================= -->
+<!-- VIEW MORE DRESSES -->
+<!-- ========================================================= -->
+
+<div class="row mt-5 mb-5">
+
+    <div class="col-12 text-center">
+
+        <a href="@Url.Action("fetchAllDress", "Customer")"
+           class="btn btn-outline-primary">
+
+            View More Dresses
+
+        </a>
+
+    </div>
+
+</div>
+
+
+<!-- ========================================================= -->
+<!-- SWIPER SCRIPT -->
+<!-- ========================================================= -->
+@section Scripts {
+
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+    <script>
+
+        document.addEventListener("DOMContentLoaded", function () {
+
+            var swiperElement = document.querySelector(".mySwiper");
+
+            if (swiperElement) {
+
+                var swiper = new Swiper(".mySwiper", {
+
+                    loop: true,
+
+                    autoplay: {
+                        delay: 4000
+                    }
+
+                });
+
+            }
+
+        });
+
+    </script>
+
+}
